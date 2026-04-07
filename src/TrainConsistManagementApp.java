@@ -1,50 +1,33 @@
-import java.util.*;
-
 public class TrainConsistManagementApp {
-
-    // 🔴 Custom Exception
-    static class InvalidCapacityException extends Exception {
-        public InvalidCapacityException(String message) {
-            super(message);
-        }
-    }
-
-    // 🟢 Passenger Bogie class
-    static class PassengerBogie {
-        String type;
-        int capacity;
-
-        PassengerBogie(String type, int capacity) throws InvalidCapacityException {
-
-            // Validation
-            if (capacity <= 0) {
-                throw new InvalidCapacityException("Capacity must be greater than zero");
-            }
-
-            this.type = type;
-            this.capacity = capacity;
-        }
-    }
 
     public static void main(String[] args) {
 
         System.out.println("=================================");
-        System.out.println("UC14 - Handle Invalid Capacity");
+        System.out.println("UC16 - Manual Sorting using Bubble Sort");
         System.out.println("=================================\n");
 
-        try {
-            // ✅ Valid bogie
-            PassengerBogie b1 = new PassengerBogie("Sleeper", 72);
-            System.out.println("Created: " + b1.type + " -> " + b1.capacity);
+        int[] capacities = {72, 56, 24, 70, 60};
 
-            // ❌ Invalid bogie
-            PassengerBogie b2 = new PassengerBogie("AC Chair", 0);
-            System.out.println("Created: " + b2.type + " -> " + b2.capacity);
-
-        } catch (InvalidCapacityException e) {
-            System.out.println("Error: " + e.getMessage());
+        System.out.println("Original Capacities:");
+        for (int c : capacities) {
+            System.out.print(c + " ");
         }
 
-        System.out.println("\nUC14 validation completed...");
+        for (int i = 0; i < capacities.length - 1; i++) {
+            for (int j = 0; j < capacities.length - i - 1; j++) {
+                if (capacities[j] > capacities[j + 1]) {
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                }
+            }
+        }
+
+        System.out.println("\n\nSorted Capacities (Ascending):");
+        for (int c : capacities) {
+            System.out.print(c + " ");
+        }
+
+        System.out.println("\n\nUC16 sorting completed...");
     }
 }
