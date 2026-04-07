@@ -1,9 +1,8 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TrainConsistManagementApp {
 
-    // Bogie class (same as UC7 & UC8)
+    // Bogie class (same as UC7–UC9)
     static class Bogie {
         String name;
         int capacity;
@@ -12,17 +11,12 @@ public class TrainConsistManagementApp {
             this.name = name;
             this.capacity = capacity;
         }
-
-        @Override
-        public String toString() {
-            return capacity + "";
-        }
     }
 
     public static void main(String[] args) {
 
         System.out.println("=================================");
-        System.out.println("UC9 - Group Bogies by Type");
+        System.out.println("UC10 - Count Total Seats in Train");
         System.out.println("=================================\n");
 
         // Create list of bogies
@@ -32,29 +26,21 @@ public class TrainConsistManagementApp {
         bogies.add(new Bogie("AC Chair", 56));
         bogies.add(new Bogie("First Class", 24));
         bogies.add(new Bogie("Sleeper", 70));
-        bogies.add(new Bogie("AC Chair", 60));
 
-        // Display all bogies
-        System.out.println("All Bogies:");
+        // Display bogies
+        System.out.println("Bogies in Train:");
         for (Bogie b : bogies) {
             System.out.println(b.name + " -> " + b.capacity);
         }
 
-        // Grouping using Stream
-        Map<String, List<Bogie>> groupedBogies =
-                bogies.stream()
-                        .collect(Collectors.groupingBy(b -> b.name));
+        // Calculate total capacity using Stream
+        int totalSeats = bogies.stream()
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
 
-        // Display grouped bogies
-        System.out.println("\nGrouped Bogies:");
+        // Display result
+        System.out.println("\nTotal Seating Capacity: " + totalSeats);
 
-        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
-            System.out.println("\nBogie Type: " + entry.getKey());
-            for (Bogie b : entry.getValue()) {
-                System.out.println("Capacity -> " + b.capacity);
-            }
-        }
-
-        System.out.println("\nUC9 grouping completed...");
+        System.out.println("\nUC10 operations completed successfully...");
     }
 }
